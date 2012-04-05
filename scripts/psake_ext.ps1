@@ -64,3 +64,20 @@ function Run-Test
         throw "One or more failures in tests - see details above."
     }
 }
+
+function Replace-FileContent
+{
+    param (
+        [string]$sourceFile = $(throw "source file is required"),
+        [string]$originalValue = $(throw "original value is required"),
+        [string]$finalValue = $(throw "final value is required"),
+        [string]$targetFile
+    )
+
+    if (!$targetFile)
+    {
+        $targetFile = $sourceFile
+    }
+
+    (cat $sourceFile) -replace '$originalValue', "$finalValue" > $targetFile
+}

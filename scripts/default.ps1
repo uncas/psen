@@ -71,6 +71,7 @@ task Collect -depends Init {
     copy "$scriptDir\psake_ext.ps1" $collectDir
 
     $fullVersion = $script:fullVersion
+    Replace-FileContent "$collectDir\psen.ps1" "@PsenVersion@" $fullVersion
     $buildContent = "`$task = `$args[0]`
 `
 `$psenVersion = `"$fullVersion`"`
