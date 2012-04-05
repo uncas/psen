@@ -67,8 +67,7 @@ task Test -depends Compile {
 }
 
 task Collect -depends Init {
-    copy $srcDir\*.* $collectDir
-    copy "$scriptDir\psake_ext.ps1" $collectDir
+    copy $scriptDir\*.* $collectDir
 
     $fullVersion = $script:fullVersion
     $buildContent = "`$task = `$args[0]`
