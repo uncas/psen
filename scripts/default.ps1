@@ -72,7 +72,7 @@ task Collect -depends Init {
     $fullVersion = $script:fullVersion
     $buildContent = "`$task = `$args[0]`
 `
-`$psenVersion = $fullVersion`
+`$psenVersion = `"$fullVersion`"`
 `
 `$psenPath = `".\packages\psen.`$psenVersion\tools\psen.ps1`"`
 if (!(Test-Path `$psenPath))`
