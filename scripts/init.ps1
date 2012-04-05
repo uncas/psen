@@ -14,7 +14,11 @@
 "Package=$package" >> C:\temp\nugetdebug.txt
 "Project=$project" >> C:\temp\nugetdebug.txt
 
+#$installPath = "d:\projects\uncas\psen\scripts"
+
 $rootPath = "$installPath\..\.."
 "RootPath=$rootPath" >> C:\temp\nugetdebug.txt
 
-Copy $toolsPath\build.ps1 $rootPath
+#$toolsPath = "d:\projects\uncas\psen\scripts"
+
+Copy $toolsPath\init.ps1 $rootPath
