@@ -6,6 +6,13 @@ properties {
     $versionMajor = 1
     $versionMinor = 0
     $versionBuild = 0
+    $solutionFileItem = (Get-Item *.sln)
+    $solutionFile = $solutionFileItem.FullName
+
+    $solutionFileNameParts = $solutionFileItem.Name.Split('.')
+    $companyName = $solutionFileNameParts[0]
+    $productName = $solutionFileNameParts[1]
+
     $year = (Get-Date).year
     $fullVersion = "$versionMajor.$versionMinor.$versionBuild.1"
 
@@ -18,17 +25,12 @@ properties {
     $collectDir = "$outputDir\collect"
     $scriptDir = "$baseDir\scripts"
 
-    $solutionFile = "$baseDir\Uncas.NowSite.sln"
     $nunitFolder = "$baseDir\packages\NUnit.2.5.10.11092\tools"
     $nunitExe = "$nunitFolder\nunit-console.exe"
     $nugetExe = "$baseDir\.nuget\nuget.exe"
-
-    $websitePort = "963"
-    $websitePath = "$baseDir\src\Uncas.WebTester.Web"
-    $websiteName = "WebTesterWeb"
 }
 
-task default -depends Publish
+task default -depends Compile
 
 task Clean {
     if (Test-Path $outputDir)
@@ -52,10 +54,10 @@ task Init -depends Clean,Initialize-ConfigFiles {
 
     Generate-Assembly-Info `
         -file "$baseDir\VersionInfo.cs" `
-        -company "Uncas" `
-        -product "Uncas.NowSite" `
+        -company $companyName `
+        -product $productName `
         -version "$versionMajor.$versionMinor.$versionBuild" `
-        -copyright "Copyright (c) $year, Ole Lynge Sørensen"
+        -copyright "Copyright (c) $year, $companyName"
 }
 
 task Compile -depends Init {
@@ -67,32 +69,12 @@ task Test -depends Compile {
 }
 
 task Collect -depends Init {
-    copy $scriptDir\*.* $collectDir
-
-    $fullVersion = $script:fullVersion
-    $buildContent = "`$task = `$args[0]`
-`
-`$psenVersion = `"$fullVersion`"`
-`
-`$psenPath = `".\packages\psen.`$psenVersion\tools\psen.ps1`"`
-if (!(Test-Path `$psenPath))`
-{`
-    nuget install psen -o packages -version `$psenVersion`
-}`
-`
-& `$psenPath `$task"
-
-    New-Item $collectDir\build.ps1 -type file -value $buildContent -force
 }
 
 task Pack -depends Collect {
-    $nuspecFile = "$scriptDir\psen.nuspec"
-    $nuspecFile
-    $script:fullVersion
-    & $nugetExe pack $nuspecFile -Version $script:fullVersion -OutputDirectory $outputDir
+    #& $nugetExe pack $nuspecFile -Version $script:fullVersion -OutputDirectory $outputDir
 }
 
 task Publish -depends Pack {
-#    & $nugetExe push "$outputDir\icrawl.$fullVersion.nupkg"
-    copy $outputDir\*.nupkg C:\NuGetPackages
+    #& $nugetExe push "$outputDir\icrawl.$fullVersion.nupkg"
 }
