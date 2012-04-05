@@ -6,7 +6,8 @@ properties {
     $versionMajor = 1
     $versionMinor = 0
     $versionBuild = 0
-    $solutionFileItem = (Get-Item *.sln)
+    $baseDir = Resolve-Path ".\.."
+    $solutionFileItem = (Get-Item $baseDir\*.sln)
     $solutionFile = $solutionFileItem.FullName
 
     $solutionFileNameParts = $solutionFileItem.Name.Split('.')
@@ -18,7 +19,6 @@ properties {
 
     $configuration = "Release"
 
-    $baseDir = ".\.."
     $srcDir = "$baseDir\src"
     $testDir = "$baseDir\test"
     $outputDir = "$baseDir\output"
