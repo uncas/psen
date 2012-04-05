@@ -79,5 +79,8 @@ function Replace-FileContent
         $targetFile = $sourceFile
     }
 
-    (cat $sourceFile) -replace '$originalValue', "$finalValue" > $targetFile
+    (Get-Content $sourceFile) | Foreach-Object {
+        $_ -replace $originalValue, $finalValue `
+        -replace 'something2', 'something2bb'
+    } | Set-Content $targetFile
 }
