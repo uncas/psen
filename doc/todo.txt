@@ -1,21 +1,28 @@
-When getting psen via nuget:
-it will be installed to
-/packages/psen.1.0.1/tools/build.ps1
-/packages/psen.1.0.1/tools/psake_ext.ps1
-/packages/psen.1.0.1/tools/psen.ps1
-the scripts will afterwards be copied to the location:
-build.ps1
-scripts/psake_ext.ps1
-scripts/psen.ps1
+*** THE SCRIPTS ***
 
-and the dependency psake will be installed to
-/packages/psake.../...
-
-the user may customize the scripts by doing the following:
-
-
-install by running this from package manager console:
-- install-package psen
-or run this from command line from root folder of project:
+psen.ps1: this loads psake and calls the default psake build script (default.ps1)
+build.ps1:
 - nuget install psen -o packages
-- copy the script build.ps1 to root folder of project
+- short-cut to psen.ps1
+default.ps1: this uses convention-based rules to build the project
+init.ps1: this copies the short-cut build.ps1 to the root folder such that it is easily accessed
+InstallTools.ps1: this installs psen and copies the short-cut:
+- nuget install psen -o packages
+- copy build.ps1 to root folder
+
+
+*** INSTALLATION ***
+
+Method 1: Run this from package manager in Visual Studio:
+- install-package psen
+- commit .\build.ps1 to version control
+
+Method 2: Run this from command line from root folder of project:
+- nuget install psen -o packages
+- copy build.ps1 to root folder
+- commit .\build.ps1 to version control
+
+
+*** CUSTOMIZATION ***
+
+How to let the user customize the scripts?
