@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>psen</id>
+    <version>$version$</version>
+    <title>psen</title>
+    <authors>Ole Lynge Soerensen</authors>
+    <owners>Ole Lynge Soerensen</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>http://github.com/uncas/psen</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Psen is intended to provide convention-based and out-of-the-box builds, tests, installations and deployments for .Net projects.</description>
+    <copyright>Copyright 2012</copyright>
+  </metadata>
+  <files>
+    <file src="..\build.ps1" target="tools" />
+    <file src="*.ps1" target="tools" />
+  </files>
+</package>
