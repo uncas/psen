@@ -6,4 +6,4 @@ nuget install psake -version $psakeVersion -o packages
 
 Import-Module .\packages\psake.$psakeVersion\tools\psake.psm1
 
-& ".\packages\psake.$psakeVersion\tools\psake.cmd" .\scripts\psen.ps1 $task
+& ".\packages\psake.$psakeVersion\tools\psake.cmd" .\scripts\default.ps1 $task
