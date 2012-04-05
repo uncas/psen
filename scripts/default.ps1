@@ -66,21 +66,26 @@ task Test -depends Compile {
     Run-Test "Uncas.NowSite.Tests" $outputDir
 }
 
-task Collect -depends Compile {
-    $files = @()
-    $files += "$srcDir\Uncas.WebTester.ConsoleApp\bin\Release\Autofac.dll"
-    $files += "$srcDir\Uncas.WebTester.ConsoleApp\bin\Release\Uncas.WebTester.ConsoleApp.exe"
-    $files += "$srcDir\Uncas.WebTester.ConsoleApp\bin\Release\Uncas.WebTester.ConsoleApp.exe.config"
-    $files += "$srcDir\Uncas.WebTester.NUnitRunner\bin\Release\Uncas.WebTester.NUnitRunner.dll"
-    $files += "$srcDir\Uncas.WebTester.NUnitRunner\bin\Release\nunit.framework.dll"
-    $files += "$srcDir\Uncas.WebTester\bin\Release\HtmlAgilityPack.dll"
-    $files += "$srcDir\Uncas.WebTester\bin\Release\Uncas.WebTester.dll"
-    $files += "$testDir\Uncas.WebTester.Tests.SimpleTestProject\bin\Release\Uncas.WebTester.Tests.SimpleTestProject.dll"
-    $files += "$testDir\Uncas.WebTester.Tests.SimpleTestProject\bin\Release\Uncas.WebTester.Tests.SimpleTestProject.dll.config"
-    copy $files $collectDir
+task Collect -depends Init {
+    copy $scriptDir\*.* $collectDir
+
+    $fullVersion = $script:fullVersion
+    $buildContent = "`$task = `$args[0]`
+`
+`$psenVersion = $fullVersion`
+`
+`$psenPath = `".\packages\psen.$psenVersion\tools\psen.ps1`"`
+if (!(Test-Path `$psenPath))`
+{`
+    nuget install psen -o packages -version `$psenVersion`
+}`
+`
+& `$psenPath `$task"
+
+    New-Item $collectDir\build.ps1 -type file -value $buildContent -force
 }
 
-task Pack -depends Init {
+task Pack -depends Collect {
     $nuspecFile = "$scriptDir\psen.nuspec"
     $nuspecFile
     $script:fullVersion
@@ -88,6 +93,6 @@ task Pack -depends Init {
 }
 
 task Publish -depends Pack {
-#    & $nugetExe push "$outputDir\icrawl.$script:fullVersion.nupkg"
+#    & $nugetExe push "$outputDir\icrawl.$fullVersion.nupkg"
     copy $outputDir\*.nupkg C:\NuGetPackages
 }

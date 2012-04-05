@@ -13,6 +13,6 @@
     <copyright>Copyright 2012</copyright>
   </metadata>
   <files>
-    <file src="*.ps1" target="tools" />
+    <file src="..\output\collect\*.ps1" target="tools" />
   </files>
 </package>
