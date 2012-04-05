@@ -74,7 +74,7 @@ task Collect -depends Init {
 `
 `$psenVersion = $fullVersion`
 `
-`$psenPath = `".\packages\psen.$psenVersion\tools\psen.ps1`"`
+`$psenPath = `".\packages\psen.`$psenVersion\tools\psen.ps1`"`
 if (!(Test-Path `$psenPath))`
 {`
     nuget install psen -o packages -version `$psenVersion`
