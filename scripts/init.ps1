@@ -1,4 +1,4 @@
-#param($installPath, $toolsPath, $package, $project)
+param($installPath, $toolsPath, $package, $project)
 
 #Copy the -vsdoc-para file over the -vsdoc file
 #$projectFolder = Split-Path -Parent $project.FileName
