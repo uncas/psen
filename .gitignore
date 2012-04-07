@@ -1,6 +1,7 @@
 /output/
 /packages/
 VersionInfo.cs
+*.csproj.user
 *~
 *.suo
 /tests/TestSolution/src/Uncas.Psen.TestSolution.Web/bin/
