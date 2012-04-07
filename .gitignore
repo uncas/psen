@@ -1,4 +1,4 @@
-packages/
-*~
-output/
+/output/
+/packages/
 VersionInfo.cs
+*~
