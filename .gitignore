@@ -2,3 +2,6 @@
 /packages/
 VersionInfo.cs
 *~
+*.suo
+/tests/TestSolution/src/Uncas.Psen.TestSolution.Web/bin/
+/tests/TestSolution/src/Uncas.Psen.TestSolution.Web/obj/
