@@ -1,5 +1,7 @@
 # Original from https://github.com/ayende/rhino-mocks/blob/master/psake_ext.ps1
 
+$appcmd = "C:\windows\system32\inetsrv\appcmd.exe"
+
 function Get-Git-Commit
 {
     $gitLog = git log --oneline -1
@@ -35,7 +37,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProductAttribute(""$product"")]
 [assembly: AssemblyCopyrightAttribute(""$copyright"")]
 [assembly: AssemblyVersionAttribute(""$fullVersion"")]
-[assembly: AssemblyInformationalVersionAttribute(""$fullVersion ($commit)"")]
+[assembly: AssemblyInformationalVersionAttribute(""$fullVersion-$commit"")]
 [assembly: AssemblyFileVersionAttribute(""$fullVersion"")]
 [assembly: AssemblyDelaySignAttribute(false)]
 "
@@ -83,4 +85,40 @@ function Replace-FileContent
         $_ -replace $originalValue, $finalValue `
         -replace 'something2', 'something2bb'
     } | Set-Content $targetFile
+}
+
+function Copy-WebApplication {
+    param (
+        [string]$sourceParentFolder = $(throw "source parent folder is required"),
+        [string]$webApplicationName = $(throw "web application name is required"),
+        [string]$destinationParentFolder = $(throw "destination parent folder is required")
+     )
+
+    $webProjectFile = "$sourceParentFolder\$webApplicationName\$webApplicationName.csproj"
+    msbuild $webProjectFile /p:Configuration=$configuration /p:WebProjectOutputDir=$collectDir\$webApplicationName\ /p:OutDir=$destinationParentFolder\$webApplicationName\bin\ /t:ResolveReferences /t:_CopyWebApplication
+}
+
+function Delete-Site {
+    param (
+        [string]$siteName = $(throw "site name is required")
+    )
+    if (!(Get-Site $siteName)) { return }
+    "Unmounts existing site $webProjectName."
+    exec { & $appcmd delete site $siteName }
+}
+
+function Get-Site {
+    param (
+        [string]$siteName = $(throw "site name is required")
+    )
+    exec { & $appcmd list site $siteName }
+}
+
+function Add-Site {
+    param (
+        [string]$siteName = $(throw "site name is required"),
+        [string]$physicalPath = $(throw "physical path is required"),
+        [string]$bindings = $(throw "bindings are required")
+    )
+    exec { & $appcmd add site /name:$siteName /bindings:$bindings /physicalPath:$physicalPath }
 }

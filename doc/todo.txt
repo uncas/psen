@@ -1,10 +1,12 @@
 *** THE SCRIPTS ***
 
-psen.ps1: this loads psake and calls the default psake build script (default.ps1)
-build.ps1:
+src/psen.ps1: this loads psake and calls the default psake build script (src/default.ps1)
+src/build.ps1:
 - nuget install psen -o packages
 - short-cut to psen.ps1
-default.ps1: this uses convention-based rules to build the project
+src/default.ps1: this uses convention-based rules to build the project
+scripts/psake_ext.ps1: common methods...
+
 init.ps1: this copies the short-cut build.ps1 to the root folder such that it is easily accessed
 InstallTools.ps1: this installs psen and copies the short-cut:
 - nuget install psen -o packages
