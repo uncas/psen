@@ -89,4 +89,7 @@ task Test -depends Publish {
     # Set up test solution such that it can install psen and run the default scripts...
     Copy-Item $testDir\TestSolution $outputDir -recurse
     & $nugetExe install psen -version $script:fullVersion -source C:\NuGetPackages -o $outputDir\TestSolution\packages
+    Copy-Item $outputDir\TestSolution\packages\psen.$script:fullVersion\tools\build.ps1 $outputDir\TestSolution
+    cd $outputDir\TestSolution
+    exec { & .\build.ps1 }
 }
