@@ -3,8 +3,8 @@ $framework = '4.0'
 . .\psake_ext.ps1
 
 properties {
-    $versionMajor = 1
-    $versionMinor = 0
+    $versionMajor = 0
+    $versionMinor = 1
     $versionBuild = 0
     $year = (Get-Date).year
     $fullVersion = "$versionMajor.$versionMinor.$versionBuild.1"
@@ -13,34 +13,28 @@ properties {
 
     $baseDir = ".\.."
     $srcDir = "$baseDir\src"
-    $testDir = "$baseDir\test"
+    $testDir = "$baseDir\tests"
     $outputDir = "$baseDir\output"
     $collectDir = "$outputDir\collect"
     $scriptDir = "$baseDir\scripts"
 
-    $solutionFile = "$baseDir\Uncas.NowSite.sln"
-    $nunitFolder = "$baseDir\packages\NUnit.2.5.10.11092\tools"
-    $nunitExe = "$nunitFolder\nunit-console.exe"
     $nugetExe = "$baseDir\.nuget\nuget.exe"
-
-    $websitePort = "963"
-    $websitePath = "$baseDir\src\Uncas.WebTester.Web"
-    $websiteName = "WebTesterWeb"
 }
 
-task default -depends Publish
+task default -depends Test
 
 task Clean {
+    if (Test-Path $collectDir)
+    {
+        rmdir -force -recurse $collectDir
+    }
     if (Test-Path $outputDir)
     {
         rmdir -force -recurse $outputDir
     }
 }
 
-task Initialize-ConfigFiles {
-}
-
-task Init -depends Clean,Initialize-ConfigFiles {
+task Init -depends Clean {
     if (!(Test-Path $outputDir))
     {
         mkdir $outputDir
@@ -51,19 +45,11 @@ task Init -depends Clean,Initialize-ConfigFiles {
     }
 
     Generate-Assembly-Info `
-        -file "$baseDir\VersionInfo.cs" `
+        -file "$outputDir\VersionInfo.cs" `
         -company "Uncas" `
-        -product "Uncas.NowSite" `
+        -product "Uncas.Psen" `
         -version "$versionMajor.$versionMinor.$versionBuild" `
         -copyright "Copyright (c) $year, Ole Lynge Sørensen"
-}
-
-task Compile -depends Init {
-    msbuild $solutionFile /p:Configuration=$configuration
-}
-
-task Test -depends Compile {
-    Run-Test "Uncas.NowSite.Tests" $outputDir
 }
 
 task Collect -depends Init {
@@ -95,6 +81,12 @@ task Pack -depends Collect {
 }
 
 task Publish -depends Pack {
-#    & $nugetExe push "$outputDir\icrawl.$fullVersion.nupkg"
+    # TODO: Iterate: & $nugetExe push "$outputDir\*.nupkg"
     copy $outputDir\*.nupkg C:\NuGetPackages
+}
+
+task Test -depends Publish {
+    # Set up test solution such that it can install psen and run the default scripts...
+    Copy-Item $testDir\TestSolution $outputDir -recurse
+    & $nugetExe install psen -version $script:fullVersion -source C:\NuGetPackages -o $outputDir\TestSolution\packages
 }
