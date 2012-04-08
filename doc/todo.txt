@@ -1,33 +1,6 @@
-*** THE SCRIPTS ***
-
-src/psen.ps1: this loads psake and calls the default psake build script (src/default.ps1)
-src/build.ps1:
-- nuget install psen -o packages
-- short-cut to psen.ps1
-src/default.ps1: this uses convention-based rules to build the project
-scripts/psake_ext.ps1: common methods...
-
-init.ps1: this copies the short-cut build.ps1 to the root folder such that it is easily accessed
-InstallTools.ps1: this installs psen and copies the short-cut:
-- nuget install psen -o packages
-- copy build.ps1 to root folder
-
-
-*** INSTALLATION ***
-
-Method 1: Run this from package manager in Visual Studio:
-- install-package psen
-- commit .\build.ps1 to version control
-
-Method 2: Run this from command line from root folder of project:
-- nuget install psen -o packages
-- copy build.ps1 to root folder
-- commit .\build.ps1 to version control
-
-
-*** CUSTOMIZATION ***
-
-- How to let the user customize the scripts?
+- Load custom properties
+- Let the user customize the scripts or override tasks
 - Configuration files: templates and replacement
 - SQL change scripts
 - MS Web Deploy
+- Windows Services
