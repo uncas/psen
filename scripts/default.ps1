@@ -26,14 +26,8 @@ properties {
 task default -depends Test
 
 task Clean {
-    if (Test-Path $collectDir)
-    {
-        rmdir -force -recurse $collectDir
-    }
-    if (Test-Path $outputDir)
-    {
-        rmdir -force -recurse $outputDir
-    }
+    Clean-Folder $collectDir
+    Clean-Folder $outputDir
 }
 
 task Init -depends Clean {
@@ -57,6 +51,7 @@ task Init -depends Clean {
 task Collect -depends Init {
     copy $srcDir\*.* $collectDir
     copy "$scriptDir\psake_ext.ps1" $collectDir
+    robocopy $testDir\TestSolution $collectDir\examples /E /XF *.suo *.csproj.user /XD bin obj
 
     $fullVersion = $script:fullVersion
     Replace-FileContent "$collectDir\psen.ps1" "@PsenVersion@" $fullVersion
@@ -73,6 +68,8 @@ if (!(Test-Path `$psenPath))`
 & `$psenPath `$task"
 
     New-Item $collectDir\build.ps1 -type file -value $buildContent -force
+    New-Item $collectDir\examples\readme.txt -type file -force -value "1) Put nuget.exe in sub folder named .nuget. 2) Run build.ps1."
+    copy $collectDir\build.ps1 $collectDir\examples
 }
 
 task Pack -depends Collect {
@@ -84,8 +81,8 @@ task Pack -depends Collect {
 }
 
 task Publish -depends Pack {
-    # TODO: & $nugetExe push "$outputDir\*.nupkg"
     copy $outputDir\*.nupkg $localNuGetPackageFolder
+    # TODO manually: & $nugetExe push "$outputDir\*.nupkg"
 }
 
 task Test -depends Publish {

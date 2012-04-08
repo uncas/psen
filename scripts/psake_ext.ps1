@@ -125,3 +125,26 @@ function Add-Site {
     "Adds site $siteName."
     exec { & $appcmd add site /name:$siteName /bindings:$bindings /physicalPath:$physicalPath }
 }
+
+function Clean-Folder {
+    param (
+	[string]$folder = $(throw "folder is required")
+    )
+    RemoveItemsInFolder $folder
+    RemoveItemsInFolder $folder
+    RemoveItemsInFolder $folder
+    RemoveItemsInFolder $folder
+    RemoveItemsInFolder $folder
+}
+
+function RemoveItemsInFolder {
+    param (
+	[string]$folder = $(throw "folder is required")
+    )
+    if (!(Test-Path $folder)) { return }
+    try {
+        Remove-Item -Recurse -Force $folder
+    }
+    catch {
+    }
+}

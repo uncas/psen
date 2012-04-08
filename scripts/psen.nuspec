@@ -11,14 +11,15 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <title>psen</title>
     <summary>Psen provides convention-based builds, tests, installations and deployments for .NET projects.</summary>
-    <description>Psen provides convention-based and out-of-the-box builds, tests, installations and deployments for .NET projects. Install steps: 1) 'nuget install psen' or 'Install-Package psen'. 2) Copy [SolutionRoot]\packages\psen.$version$\tools\build.ps1 to [SolutionRoot]. Psen assumes a layout: VS solution file: [ProjectRoot]\*.sln, VS projects located here: [ProjectRoot]\src\MyProject\MyProject.csproj, web applications named like *.Web. Psen is pronounced like 'zen' and uses psake.</description>
-    <tags>psen psake </tags>
+    <description>Psen provides convention-based and out-of-the-box builds, tests, installations and deployments for .NET projects. Find more details in readme file on github and an example in the folder packages\psen.(version)\tools\examples.</description>
+    <tags>psen psake powershell</tags>
     <releaseNotes>Last change included in this package: @LastLog@</releaseNotes>
     <dependencies>
       <dependency id="psake" version="4.0.1.0" />
     </dependencies> 
   </metadata>
   <files>
-    <file src="..\output\collect\*.ps1" target="tools" />
+    <file src="..\output\collect\**\*.*" target="tools" />
+    <file src="..\output\collect\**\*" target="tools" />
   </files>
 </package>
