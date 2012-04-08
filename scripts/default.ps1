@@ -76,9 +76,10 @@ if (!(Test-Path `$psenPath))`
 }
 
 task Pack -depends Collect {
-    $nuspecFile = "$scriptDir\psen.nuspec"
-    $nuspecFile
-    $script:fullVersion
+    $nuspecFileTemplate = "$scriptDir\psen.nuspec"
+    $nuspecFile = "$outputDir\psen.nuspec"
+    $lastLog = (git log --pretty=format:"%s (Commit %h, %an, %aD)" -1)
+    Replace-FileContent $nuspecFileTemplate "@LastLog@" $lastLog $nuspecFile
     & $nugetExe pack $nuspecFile -Version $script:fullVersion -OutputDirectory $outputDir
 }
 

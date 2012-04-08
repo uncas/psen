@@ -3,14 +3,20 @@
   <metadata>
     <id>psen</id>
     <version>$version$</version>
-    <title>psen</title>
+    <copyright>Copyright 2012</copyright>
     <authors>Ole Lynge Soerensen</authors>
     <owners>Ole Lynge Soerensen</owners>
-    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
     <projectUrl>http://github.com/uncas/psen</projectUrl>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Psen is intended to provide convention-based and out-of-the-box builds, tests, installations and deployments for .Net projects.</description>
-    <copyright>Copyright 2012</copyright>
+    <title>psen</title>
+    <summary>Psen provides convention-based builds, tests, installations and deployments for .NET projects.</summary>
+    <description>Psen provides convention-based and out-of-the-box builds, tests, installations and deployments for .NET projects. Install steps: 1) 'nuget install psen' or 'Install-Package psen'. 2) Copy [SolutionRoot]\packages\psen.$version$\tools\build.ps1 to [SolutionRoot]. Psen assumes a layout: VS solution file: [ProjectRoot]\*.sln, VS projects located here: [ProjectRoot]\src\MyProject\MyProject.csproj, web applications named like *.Web. Psen is pronounced like 'zen' and uses psake.</description>
+    <tags>psen psake </tags>
+    <releaseNotes>Last change included in this package: @LastLog@</releaseNotes>
+    <dependencies>
+      <dependency id="psake" version="4.0.1.0" />
+    </dependencies> 
   </metadata>
   <files>
     <file src="..\output\collect\*.ps1" target="tools" />

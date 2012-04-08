@@ -27,4 +27,7 @@ Method 2: Run this from command line from root folder of project:
 
 *** CUSTOMIZATION ***
 
-How to let the user customize the scripts?
+- How to let the user customize the scripts?
+- Configuration files: templates and replacement
+- SQL change scripts
+- MS Web Deploy

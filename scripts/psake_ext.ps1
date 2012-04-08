@@ -27,6 +27,7 @@ param(
   $commitCount = Get-Git-CommitCount
   $fullVersion = "$version.$commitCount"
   $script:fullVersion = $fullVersion
+  $script:gitHash = $commit
   "Version $fullVersion (commit hash: $commit, commit log count: $commitCount)"
   $asmInfo = "using System;
 using System.Reflection;
