@@ -6,8 +6,10 @@ properties {
     $versionMajor = 0
     $versionMinor = 1
     $versionBuild = 0
-    $baseDir = Resolve-Path ".\.."
+    $baseDir = Resolve-Path ".\..\..\.."
+    "BaseDir=$baseDir"
     $solutionFileItem = (Get-Item $baseDir\*.sln)
+    "SolutionFile:$solutionFileItem"
     $solutionFile = $solutionFileItem.FullName
 
     $solutionFileNameParts = $solutionFileItem.Name.Split('.')
