@@ -65,7 +65,7 @@ task Collect -depends Init {
 `$psenPath = `".\packages\psen.`$psenVersion\tools\psen.ps1`"`
 if (!(Test-Path `$psenPath))`
 {`
-    nuget install psen -o packages -version `$psenVersion`
+    .nuget\nuget.exe install psen -o packages -version `$psenVersion`
 }`
 `
 & `$psenPath `$task"
@@ -81,15 +81,24 @@ task Pack -depends Collect {
 }
 
 task Publish -depends Pack {
-    # TODO: Iterate: & $nugetExe push "$outputDir\*.nupkg"
+    # TODO: & $nugetExe push "$outputDir\*.nupkg"
     copy $outputDir\*.nupkg C:\NuGetPackages
 }
 
 task Test -depends Publish {
     # Set up test solution such that it can install psen and run the default scripts...
     Copy-Item $testDir\TestSolution $outputDir -recurse
-    & $nugetExe install psen -version $script:fullVersion -source C:\NuGetPackages -o $outputDir\TestSolution\packages
-    Copy-Item $outputDir\TestSolution\packages\psen.$script:fullVersion\tools\build.ps1 $outputDir\TestSolution
+    # Assumes that the user has installed nuget in .nuget folder:
+    Copy-Item $baseDir\.nuget $outputDir\TestSolution -recurse
+
     cd $outputDir\TestSolution
+
+    # Now execute the commands that the user should also do in order to install psen:
+    & .nuget\nuget.exe install psen -version $script:fullVersion -source C:\NuGetPackages -o packages
+    Copy-Item packages\psen.$script:fullVersion\tools\build.ps1 .
+
+    # Now execute the psen script:
+    #Invoke-Psake packages\psen.$script:fullVersion\tools\default.ps1
     exec { & .\build.ps1 }
+    "Done testing"
 }

@@ -132,6 +132,7 @@ task PackCollected -depends GenerateNuspec {
 }
 
 task Pack -depends PackCollected {
+    if (!(Test-Path $scriptDir)) { return }
     $nuspecFiles = gci $scriptDir | Where-Object {$_.Name.EndsWith(".nuspec")}
     if (!$nuspecFiles) { return }
     "Packaging for the following nuspecs: $nuspecFiles"
@@ -183,6 +184,8 @@ task Install -depends Collect, UnmountWebsites {
     foreach ($webProject in $webProjects)
     {
         $webProjectName = $webProject.Name
+        "Deleting existing site: $webProjectName"
+        Delete-Site $webProjectName
         $physicalPath = $webProject.FullName
         "Mounts the web project $webProjectName at port $websitePort."
         Add-Site $webProjectName $physicalPath "http://*:$websitePort"
