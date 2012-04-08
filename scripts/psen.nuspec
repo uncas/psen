@@ -11,8 +11,8 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <title>psen</title>
     <summary>Psen provides convention-based builds, tests, installations and deployments for .NET projects.</summary>
-    <description>Psen provides convention-based and out-of-the-box builds, tests, installations and deployments for .NET projects. Find more details in readme file on github and an example in the folder packages\psen.(version)\tools\examples.</description>
-    <tags>psen psake powershell</tags>
+    <description>Psen provides convention-based and out-of-the-box builds, tests, installations and deployments for .NET projects. Find more details in readme file on github and an example in the folder packages\psen.$version$\tools\examples.</description>
+    <tags>psake powershell build automation psen zen</tags>
     <releaseNotes>Last change included in this package: @LastLog@</releaseNotes>
     <dependencies>
       <dependency id="psake" version="4.0.1.0" />
