@@ -19,6 +19,8 @@ properties {
     $scriptDir = "$baseDir\scripts"
 
     $nugetExe = "$baseDir\.nuget\nuget.exe"
+
+    $localNuGetPackageFolder = "C:\NuGetPackages"
 }
 
 task default -depends Test
@@ -82,7 +84,7 @@ task Pack -depends Collect {
 
 task Publish -depends Pack {
     # TODO: & $nugetExe push "$outputDir\*.nupkg"
-    copy $outputDir\*.nupkg C:\NuGetPackages
+    copy $outputDir\*.nupkg $localNuGetPackageFolder
 }
 
 task Test -depends Publish {
@@ -94,7 +96,7 @@ task Test -depends Publish {
     cd $outputDir\TestSolution
 
     # Now execute the commands that the user should also do in order to install psen:
-    & .nuget\nuget.exe install psen -version $script:fullVersion -source C:\NuGetPackages -o packages
+    & .nuget\nuget.exe install psen -version $script:fullVersion -source $localNuGetPackageFolder -o packages
     Copy-Item packages\psen.$script:fullVersion\tools\build.ps1 .
 
     # Now execute the psen script:
