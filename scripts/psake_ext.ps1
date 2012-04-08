@@ -102,7 +102,8 @@ function Delete-Site {
     param (
         [string]$siteName = $(throw "site name is required")
     )
-    if (!(Get-Site $siteName)) { return }
+    $existing = Get-Site $siteName
+    if (!$existing) { return }
     "Unmounts existing site $webProjectName."
     exec { & $appcmd delete site $siteName }
 }
@@ -111,7 +112,7 @@ function Get-Site {
     param (
         [string]$siteName = $(throw "site name is required")
     )
-    exec { & $appcmd list site $siteName }
+    return (& $appcmd list site $siteName)
 }
 
 function Add-Site {
