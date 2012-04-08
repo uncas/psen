@@ -98,7 +98,7 @@ task Test -depends Publish {
     Copy-Item packages\psen.$script:fullVersion\tools\build.ps1 .
 
     # Now execute the psen script:
-    #Invoke-Psake packages\psen.$script:fullVersion\tools\default.ps1
-    exec { & .\build.ps1 }
+    Invoke-Psake packages\psen.$script:fullVersion\tools\default.ps1
+    #exec { & .\build.ps1 }
     "Done testing"
 }

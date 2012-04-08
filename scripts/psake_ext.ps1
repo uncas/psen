@@ -102,7 +102,6 @@ function Delete-Site {
     param (
         [string]$siteName = $(throw "site name is required")
     )
-    "Deleting $siteName:"
     if (!(Get-Site $siteName)) { return }
     "Unmounts existing site $webProjectName."
     exec { & $appcmd delete site $siteName }
@@ -112,7 +111,6 @@ function Get-Site {
     param (
         [string]$siteName = $(throw "site name is required")
     )
-    "Checking if $siteName exists:"
     exec { & $appcmd list site $siteName }
 }
 
@@ -122,5 +120,6 @@ function Add-Site {
         [string]$physicalPath = $(throw "physical path is required"),
         [string]$bindings = $(throw "bindings are required")
     )
+    "Adds site $siteName."
     exec { & $appcmd add site /name:$siteName /bindings:$bindings /physicalPath:$physicalPath }
 }
