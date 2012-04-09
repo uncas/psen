@@ -1,6 +1,8 @@
-- Load custom properties
 - Let the user customize the scripts or override tasks
+- FTP upload to site
+- Load custom properties
 - Configuration files: templates and replacement
-- SQL change scripts
+- Blue-green deployment
 - MS Web Deploy
 - Windows Services
+- SQL change scripts?
