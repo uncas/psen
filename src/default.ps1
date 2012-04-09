@@ -26,6 +26,8 @@ properties {
 
     # Loads private properties, from private.ps1 which is *not* put in version control:
     $privatePath = "$scriptDir\private.ps1"
+    # Allows path to private properties to be overridden in custom.ps1:
+    if ($script:privatePath) { $privatePath = $script:privatePath }
     if (Test-Path $privatePath) {
         . $privatePath
         if (Test-Path function:LoadPrivateProperties) { LoadPrivateProperties }
