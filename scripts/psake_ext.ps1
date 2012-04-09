@@ -158,6 +158,12 @@ function SynchronizeFoldersViaFtp {
         [string]$remoteFolder = $(throw "remote folder is required")
     )
     $winScpPath = "C:\Program Files (x86)\WinSCP\winscp.exe"
+    if (!(Test-Path $winScpPath))
+    {
+        throw "*** WinSCP.exe was not found in the folder $winScpPath.`
+*** FTP sync uses WinSCP - a free FTP client for Windows.`
+*** Please download and install WinSCP from http://winscp.net/eng/download.php."
+    }
     $ftpPath = "UploadViaFtp.txt"
     $ftpLogPath = "winscp.log"
     $ftpUrl = "ftp://$ftpUser" + ":" + "$ftpPassword@$ftpHost"
