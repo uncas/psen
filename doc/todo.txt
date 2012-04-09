@@ -1,8 +1,11 @@
-- Let the user customize the scripts or override tasks
-- FTP upload to site
-- Load custom properties
+- Windows Services
 - Configuration files: templates and replacement
+- Test execution / NUnit in project (dependency?)
+
+Nice-to-have:
+- Smoke test of website
+
+Not needed:
 - Blue-green deployment
 - MS Web Deploy
-- Windows Services
 - SQL change scripts?

@@ -83,7 +83,7 @@ task Init -depends Clean,Initialize-ConfigFiles {
     }
 
     Generate-Assembly-Info `
-        -file "$srcDir\VersionInfo.cs" `
+        -file "$outputDir\VersionInfo.cs" `
         -company $companyName `
         -product $productName `
         -version "$versionMajor.$versionMinor.$versionBuild" `
