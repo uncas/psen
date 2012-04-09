@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Psen : Convention-based builds" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Psen</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/uncas/psen">Fork Me on GitHub</a>
+
+          <h1 id="project_title">Psen</h1>
+          <h2 id="project_tagline">Convention-based builds</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/uncas/psen/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/uncas/psen/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>Psen</h3>
+
+<p>Psen provides convention-based and out-of-the-box builds, tests, installations and deployments for .NET projects.</p>
+
+<h3>Features</h3>
+
+<ul>
+<li>Builds solution</li>
+<li>Runs tests</li>
+<li>Packages supported project types</li>
+<li>Mounts websites</li>
+<li>Overridable properties</li>
+<li>Customizable publish method</li>
+<li>FTP synchronization (psake_ext.ps1/SynchronizeFoldersViaFtp)</li>
+</ul><h3>Prerequisites</h3>
+
+<ul>
+<li>nuget installed in <code>[SolutionRoot]\.nuget</code> and committed to version control</li>
+</ul><h3>Installation</h3>
+
+<ul>
+<li>From command-line: <code>[SolutionRoot]\.nuget\nuget.exe install psen</code> or from Visual Studio Package Manager Console: <code>Install-Package psen</code>
+</li>
+<li>Copy <code>[SolutionRoot]\packages\psen.[version]\tools\build.ps1</code> to <code>[SolutionRoot]\build.ps1</code>
+</li>
+<li>Commit <code>[SolutionRoot]\build.ps1</code> to version control</li>
+</ul><h3>Usage</h3>
+
+<ul>
+<li>Run <code>[SolutionRoot]\build.ps1</code>
+</li>
+</ul><h3>Standard layout</h3>
+
+<ul>
+<li>Visual Studio solution file located in root folder: <code>[SolutionRoot]\*.sln</code>
+</li>
+<li>Visual Studio projects located in <code>src</code> folder: <code>[SolutionRoot]\src\Me.MyProduct.Web\Me.MyProduct.Web.csproj</code>
+</li>
+<li>Visual Studio NUnit test projects located in <code>test</code> folder: <code>[SolutionRoot]\test\Me.MyProduct.Tests\Me.MyProduct.Tests.csproj</code>
+</li>
+</ul><h3>Supported project types</h3>
+
+<ul>
+<li>Web applications named like <code>*.Web</code>
+</li>
+<li>NUnit test projects named like <code>*.Tests</code>
+</li>
+</ul><h3>Misc</h3>
+
+<ul>
+<li>Psen is pronounced like 'Zen'</li>
+<li>Psen uses psake</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Psen maintained by <a href="https://github.com/uncas">uncas</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
