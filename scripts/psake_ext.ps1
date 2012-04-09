@@ -148,3 +148,26 @@ function RemoveItemsInFolder {
     catch {
     }
 }
+
+function SynchronizeFoldersViaFtp {
+    param(
+        [string]$ftpHost = $(throw "ftp host is required"),
+        [string]$ftpUser = $(throw "ftp user is required"),
+        [string]$ftpPassword = $(throw "ftp password is required"),
+        [string]$localFolder = $(throw "local folder is required"),
+        [string]$remoteFolder = $(throw "remote folder is required")
+    )
+    $winScpPath = "C:\Program Files (x86)\WinSCP\winscp.exe"
+    $ftpPath = "UploadViaFtp.txt"
+    $ftpLogPath = "winscp.log"
+    $ftpUrl = "ftp://$ftpUser" + ":" + "$ftpPassword@$ftpHost"
+    $ftpScript = "option batch on`
+option confirm off`
+open $ftpUrl`
+synchronize remote $localFolder $remoteFolder`
+exit"
+    out-file -filePath $ftpPath -encoding UTF8 -inputObject $ftpScript
+    Start-Process -FilePath $winScpPath -ArgumentList /console,/script=$ftpPath,/log=$ftpLogPath -Wait
+    del $ftpPath
+    del $ftpLogPath
+}
