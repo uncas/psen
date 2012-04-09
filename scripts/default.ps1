@@ -13,7 +13,7 @@ properties {
 
     $baseDir = ".\.."
     $srcDir = "$baseDir\src"
-    $testDir = "$baseDir\tests"
+    $testDir = "$baseDir\test"
     $outputDir = "$baseDir\output"
     $collectDir = "$outputDir\collect"
     $scriptDir = "$baseDir\scripts"
