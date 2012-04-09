@@ -164,7 +164,7 @@ task TestPacks -depends Pack {
     }
 }
 
-task Publish -depends Pack, Test {
+task PublishNuGet -depends Pack, Test {
     $nupackages = gci $outputDir -include *.nupkg
     if (!$nupackages) { return }
     "Publishing the following NuGet packages: $nupackages"
@@ -172,6 +172,10 @@ task Publish -depends Pack, Test {
     {
         #& $nugetExe push $nupackage
     }
+}
+
+task Publish -depends Pack, Test, PublishNuGet {
+    if (Test-Path function:CustomPublish) { CustomPublish }
 }
 
 function GetWebProjects
