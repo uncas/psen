@@ -6,8 +6,29 @@ properties {
     $versionMajor = 0
     $versionMinor = 1
     $versionBuild = 0
+    $configuration = "Release"
+
     $baseDir = Resolve-Path ".\..\..\.."
-    "BaseDir=$baseDir"
+    $srcDir = "$baseDir\src"
+    $testDir = "$baseDir\test"
+    $outputDir = "$baseDir\output"
+    $collectDir = "$outputDir\collect"
+    $scriptDir = "$baseDir\scripts"
+
+    $defaultWebsitePort = 8100
+
+    $customPath = "$scriptDir\custom.ps1"
+    if (Test-Path $customPath)
+    {
+        . $customPath
+        LoadCustomProperties
+        if ($script:configuration) { $configuration = $script:configuration }
+        if ($script:versionMajor) { $versionMajor = $script:versionMajor }
+        if ($script:versionMinor) { $versionMinor = $script:versionMinor }
+        if ($script:versionBuild) { $versionBuild = $script:versionBuild }
+        if ($script:defaultWebsitePort) { $defaultWebsitePort = $script:defaultWebsitePort }
+    }
+
     $solutionFileItem = (Get-Item $baseDir\*.sln)
     "SolutionFile:$solutionFileItem"
     $solutionFile = $solutionFileItem.FullName
@@ -19,18 +40,9 @@ properties {
     $year = (Get-Date).year
     $fullVersion = "$versionMajor.$versionMinor.$versionBuild.1"
 
-    $configuration = "Release"
-
-    $srcDir = "$baseDir\src"
-    $testDir = "$baseDir\test"
-    $outputDir = "$baseDir\output"
-    $collectDir = "$outputDir\collect"
-    $scriptDir = "$baseDir\scripts"
-
     $nunitFolder = "$baseDir\packages\NUnit.2.5.10.11092\tools"
     $nunitExe = "$nunitFolder\nunit-console.exe"
     $nugetExe = "$baseDir\.nuget\nuget.exe"
-    $defaultWebsitePort = 8100
 }
 
 task default -depends Install, TestPacks, Test
