@@ -17,17 +17,26 @@ properties {
 
     $defaultWebsitePort = 8100
 
+    # Loads custom properties, from custom.ps1 which is put in version control:
     $customPath = "$scriptDir\custom.ps1"
-    if (Test-Path $customPath)
-    {
+    if (Test-Path $customPath) {
         . $customPath
-        LoadCustomProperties
-        if ($script:configuration) { $configuration = $script:configuration }
-        if ($script:versionMajor) { $versionMajor = $script:versionMajor }
-        if ($script:versionMinor) { $versionMinor = $script:versionMinor }
-        if ($script:versionBuild) { $versionBuild = $script:versionBuild }
-        if ($script:defaultWebsitePort) { $defaultWebsitePort = $script:defaultWebsitePort }
+        if (Test-Path function:LoadCustomProperties) { LoadCustomProperties }
     }
+
+    # Loads private properties, from private.ps1 which is *not* put in version control:
+    $privatePath = "$scriptDir\private.ps1"
+    if (Test-Path $privatePath) {
+        . $privatePath
+        if (Test-Path function:LoadPrivateProperties) { LoadPrivateProperties }
+    }
+
+    # Assigns values from custom and private properties:
+    if ($script:configuration) { $configuration = $script:configuration }
+    if ($script:versionMajor) { $versionMajor = $script:versionMajor }
+    if ($script:versionMinor) { $versionMinor = $script:versionMinor }
+    if ($script:versionBuild) { $versionBuild = $script:versionBuild }
+    if ($script:defaultWebsitePort) { $defaultWebsitePort = $script:defaultWebsitePort }
 
     $solutionFileItem = (Get-Item $baseDir\*.sln)
     "SolutionFile:$solutionFileItem"
