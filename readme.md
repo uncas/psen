@@ -9,6 +9,9 @@ Features
 * Runs tests
 * Packages supported project types
 * Mounts websites
+* Overridable properties
+* Customizable publish method
+* FTP synchronization (psake_ext.ps1/SynchronizeFoldersViaFtp)
 
 Prerequisites
 -------------
@@ -16,18 +19,19 @@ Prerequisites
 
 Installation
 ------------
-* From command-line: `.nuget\nuget.exe install psen` or from Visual Studio: `Install-Package psen`.
-* Copy `[SolutionRoot]\packages\psen.[version]\tools\build.ps1` to `[SolutionRoot]`.
-* Commit `.\build.ps1` to version control
+* From command-line: `[SolutionRoot]\.nuget\nuget.exe install psen` or from Visual Studio Package Manager Console: `Install-Package psen`
+* Copy `[SolutionRoot]\packages\psen.[version]\tools\build.ps1` to `[SolutionRoot]\build.ps1`
+* Commit `[SolutionRoot]\build.ps1` to version control
 
 Usage
 -----
-* Run `.\build.ps1`
+* Run `[SolutionRoot]\build.ps1`
 
 Standard layout
 ---------------
-* Visual Studio solution file: `[SolutionRoot]\*.sln`
-* Visual Studio projects located here: `[SolutionRoot]\src\Me.MyProduct.Web\Me.MyProduct.Web.csproj`
+* Visual Studio solution file located in root folder: `[SolutionRoot]\*.sln`
+* Visual Studio projects located in `src` folder: `[SolutionRoot]\src\Me.MyProduct.Web\Me.MyProduct.Web.csproj`
+* Visual Studio NUnit test projects located in `test` folder: `[SolutionRoot]\test\Me.MyProduct.Tests\Me.MyProduct.Tests.csproj`
 
 Supported project types
 -----------------------
@@ -36,5 +40,5 @@ Supported project types
 
 Misc
 ----
-* Psen is pronounced like 'Zen'.
-* Psen uses psake.
+* Psen is pronounced like 'Zen'
+* Psen uses psake

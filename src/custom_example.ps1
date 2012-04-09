@@ -8,15 +8,12 @@ function LoadCustomProperties {
     $script:versionBuild = 3
     $script:defaultWebsitePort = 8381
     $script:FtpHost = "ftp.example.com"
-
-    # This method might also call another file for secrets like passwords or API keys, for example:
-    if (Test-Path "my-secrets.ps1") {
-        LoadMySecrets
-    }
 }
 
-# Contents of my-secrets.ps1, which is not committed to version control:
-function LoadMySecrets {
+# Contents of private.ps1, which is not committed to version control:
+# Usage: Create or copy file to '[baseDir]\scripts\private.ps1' and add or edit properties as required
+
+function LoadPrivateProperties {
     $script:FtpUser = "ExampleFtpUser"
     $script:FtpPassword = "ExampleFtpPassword"
 }
