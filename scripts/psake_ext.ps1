@@ -157,7 +157,7 @@ function SynchronizeFoldersViaFtp {
         [string]$localFolder = $(throw "local folder is required"),
         [string]$remoteFolder = $(throw "remote folder is required")
     )
-    $winScpPath = "C:\Program Files (x86)\WinSCP\winscp.exe"
+    $winScpPath = "$baseDir\packages\WinSCP.4.3.7\tools\winscp.exe"
     if (!(Test-Path $winScpPath))
     {
         throw "*** WinSCP.exe was not found in the folder $winScpPath.`
