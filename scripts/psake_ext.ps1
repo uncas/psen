@@ -162,7 +162,8 @@ function SynchronizeFoldersViaFtp {
     {
         throw "*** WinSCP.exe was not found in the folder $winScpPath.`
 *** FTP sync uses WinSCP - a free FTP client for Windows.`
-*** Please download and install WinSCP from http://winscp.net/eng/download.php."
+*** Get the nuget package WinSCP.`
+*** Or download WinSCP portable from http://winscp.net/eng/download.php."
     }
     $ftpPath = "UploadViaFtp.txt"
     $ftpLogPath = "winscp.log"
