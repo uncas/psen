@@ -1,6 +1,6 @@
 $task = $args[0]
 
-$psakeVersion = "4.0.1.0"
+$psakeVersion = "4.1.0"
 
 nuget install psake -version $psakeVersion -o packages
 
