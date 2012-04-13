@@ -64,7 +64,6 @@ if (!(Test-Path `$psenPath))`
 {`
     .nuget\nuget.exe install psen -o packages -version `$psenVersion`
 }`
-.nuget\nuget.exe install WinSCP -o packages -version 4.3.7`
 `
 & `$psenPath `$task"
 
