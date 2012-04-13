@@ -15,8 +15,8 @@
     <tags>psake powershell build automation psen zen</tags>
     <releaseNotes>Last change included in this package: @LastLog@</releaseNotes>
     <dependencies>
-      <dependency id="psake" version="4.0.1.0" />
-      <dependency id="WinSCP" version="4.3.7" />
+      <dependency id="psake" version="[4.0.1.0]" />
+      <dependency id="WinSCP" version="[4.3.7]" />
     </dependencies> 
   </metadata>
   <files>
