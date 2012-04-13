@@ -94,7 +94,7 @@ task Test -depends Publish {
     cd $outputDir\TestSolution
 
     # Now execute the commands that the user should also do in order to install psen:
-    & .nuget\nuget.exe install psen -version $script:fullVersion -source $localNuGetPackageFolder -o packages
+    & .nuget\nuget.exe install psen -version $script:fullVersion -o packages
     Copy-Item packages\psen.$script:fullVersion\tools\build.ps1 .
 
     # Now execute the psen script:
