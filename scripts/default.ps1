@@ -4,7 +4,7 @@ $framework = '4.0'
 
 properties {
     $versionMajor = 0
-    $versionMinor = 1
+    $versionMinor = 2
     $versionBuild = 0
     $year = (Get-Date).year
     $fullVersion = "$versionMajor.$versionMinor.$versionBuild.1"
