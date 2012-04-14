@@ -1,5 +1,3 @@
-$framework = '4.0'
-
 . .\psake_ext.ps1
 
 properties {
@@ -59,14 +57,9 @@ properties {
 task default -depends Install, TestPacks, Test
 
 task Clean -depends UnmountWebsites {
-    if (Test-Path $collectDir)
-    {
-        rmdir -force -recurse $collectDir
-    }
-    if (Test-Path $outputDir)
-    {
-        rmdir -force -recurse $outputDir
-    }
+    Clean-Folder $collectDir
+    Clean-Folder $outputDir
+    gci -r -include *~ | Remove-Item
 }
 
 task Initialize-ConfigFiles {

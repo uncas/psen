@@ -1,5 +1,3 @@
-$framework = '4.0'
-
 . .\psake_ext.ps1
 
 properties {
@@ -28,6 +26,7 @@ task default -depends Test
 task Clean {
     Clean-Folder $collectDir
     Clean-Folder $outputDir
+    gci -r -include *~ | Remove-Item
 }
 
 task Init -depends Clean {
