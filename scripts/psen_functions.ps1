@@ -11,7 +11,9 @@ function Get-Git-Commit
 function Get-Git-CommitCount
 {
     $gitLog = git log --pretty=oneline
-    return $gitLog.length
+    $commitCount = $gitLog.count
+    if (!$commitCount) { $commitCount = 1 }
+    return $commitCount
 }
 
 function Generate-Assembly-Info
