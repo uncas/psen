@@ -11,7 +11,7 @@ Features
 * Mounts websites
 * Overridable properties
 * Customizable publish method
-* FTP synchronization (psake_ext.ps1/SynchronizeFoldersViaFtp)
+* FTP synchronization (psen_functions.ps1/SynchronizeFoldersViaFtp)
 
 Prerequisites
 -------------

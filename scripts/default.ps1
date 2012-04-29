@@ -1,4 +1,4 @@
-. .\psake_ext.ps1
+. .\psen_functions.ps1
 
 properties {
     $versionMajor = 0
@@ -49,7 +49,7 @@ task Init -depends Clean {
 
 task Collect -depends Init {
     copy $srcDir\*.* $collectDir
-    copy "$scriptDir\psake_ext.ps1" $collectDir
+    copy "$scriptDir\psen_functions.ps1" $collectDir
     robocopy $testDir\TestSolution $collectDir\examples /E /XF *.suo *.csproj.user /XD bin obj
 
     $fullVersion = $script:fullVersion

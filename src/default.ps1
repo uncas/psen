@@ -1,4 +1,4 @@
-. .\psake_ext.ps1
+. .\psen_functions.ps1
 
 properties {
     $versionMajor = 0
