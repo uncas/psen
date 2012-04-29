@@ -1,16 +1,15 @@
-# Original from https://github.com/ayende/rhino-mocks/blob/master/psake_ext.ps1
-
 $appcmd = "C:\windows\system32\inetsrv\appcmd.exe"
 
 function Get-Git-Commit
 {
+    # Original from https://github.com/ayende/rhino-mocks/blob/master/psake_ext.ps1
     $gitLog = git log --oneline -1
     return $gitLog.Split(' ')[0]
 }
 
 function Get-Git-CommitCount
 {
-    $gitLog = git log --pretty=oneline
+    $gitLog = git log --oneline
     $commitCount = $gitLog.count
     if (!$commitCount) { $commitCount = 1 }
     return $commitCount
@@ -18,20 +17,21 @@ function Get-Git-CommitCount
 
 function Generate-Assembly-Info
 {
-param(
-	[string]$company, 
-	[string]$product, 
-	[string]$copyright, 
-	[string]$version,
-	[string]$file = $(throw "file is a required parameter.")
-)
-  $commit = Get-Git-Commit
-  $commitCount = Get-Git-CommitCount
-  $fullVersion = "$version.$commitCount"
-  $script:fullVersion = $fullVersion
-  $script:gitHash = $commit
-  "Version $fullVersion (commit hash: $commit, commit log count: $commitCount)"
-  $asmInfo = "using System;
+    # Original from https://github.com/ayende/rhino-mocks/blob/master/psake_ext.ps1
+    param(
+        [string]$company, 
+        [string]$product, 
+        [string]$copyright, 
+        [string]$version,
+        [string]$file = $(throw "file is a required parameter.")
+    )
+    $commit = Get-Git-Commit
+    $commitCount = Get-Git-CommitCount
+    $fullVersion = "$version.$commitCount"
+    $script:fullVersion = $fullVersion
+    $script:gitHash = $commit
+    "Version $fullVersion (commit hash: $commit, commit log count: $commitCount)"
+    $asmInfo = "using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -42,17 +42,16 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersionAttribute(""$fullVersion"")]
 [assembly: AssemblyInformationalVersionAttribute(""$fullVersion-$commit"")]
 [assembly: AssemblyFileVersionAttribute(""$fullVersion"")]
-[assembly: AssemblyDelaySignAttribute(false)]
-"
+[assembly: AssemblyDelaySignAttribute(false)]"
 
-	$dir = [System.IO.Path]::GetDirectoryName($file)
-	if ([System.IO.Directory]::Exists($dir) -eq $false)
-	{
-		Write-Host "Creating directory $dir"
-		[System.IO.Directory]::CreateDirectory($dir)
-	}
-	Write-Host "Generating assembly info file: $file"
-	out-file -filePath $file -encoding UTF8 -inputObject $asmInfo
+    $dir = [System.IO.Path]::GetDirectoryName($file)
+    if ([System.IO.Directory]::Exists($dir) -eq $false)
+    {
+        Write-Host "Creating directory $dir"
+        [System.IO.Directory]::CreateDirectory($dir)
+    }
+    Write-Host "Generating assembly info file: $file"
+    out-file -filePath $file -encoding UTF8 -inputObject $asmInfo
 }
 
 function Run-Test
