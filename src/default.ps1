@@ -66,6 +66,7 @@ task Initialize-ConfigFiles {
 }
 
 task Init -depends Clean,Initialize-ConfigFiles {
+    if (Test-Path function:PreInit) { PreInit }
     if (!(Test-Path $outputDir))
     {
         mkdir $outputDir
@@ -81,6 +82,7 @@ task Init -depends Clean,Initialize-ConfigFiles {
         -product $productName `
         -version "$versionMajor.$versionMinor.$versionBuild" `
         -copyright "Copyright (c) $year, $companyName"
+    if (Test-Path function:PostInit) { PostInit }
 }
 
 task Compile -depends Init {
@@ -99,6 +101,7 @@ task Test -depends Compile {
 }
 
 task Collect -depends Compile {
+    if (Test-Path function:PreCollect) { PreCollect }
     $webProjects = gci $srcDir | Where-Object {$_.Name.EndsWith(".Web")}
     if (!$webProjects) { return }
     "Collecting the following web projects: $webProjects"
@@ -106,6 +109,7 @@ task Collect -depends Compile {
     {
         Copy-WebApplication $srcDir $webProject $collectDir
     }
+    if (Test-Path function:PostCollect) { PostCollect }
 }
 
 task GenerateNuspec -depends Collect {
